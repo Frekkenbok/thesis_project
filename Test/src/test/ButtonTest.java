@@ -123,6 +123,12 @@ public class ButtonTest extends javax.swing.JFrame {
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton5);
 
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
         jButton6.setText("Вставить");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -246,8 +252,6 @@ public class ButtonTest extends javax.swing.JFrame {
         jLabel10.setText("По");
 
         jLabel11.setText("Препарат");
-
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -516,6 +520,36 @@ public class ButtonTest extends javax.swing.JFrame {
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // Заполнение комбобокса
+     jComboBox5.removeAllItems();
+     jComboBox5.addItem("Select the translator");
+        
+         try 
+    {
+    String userName = "root";
+    String password = "Password";
+    String url = "jdbc:mysql://localhost:3306/testdb";
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();
+    res = stat.executeQuery(" SELECT DISTINCT CureName from v_searchpanel ");
+    while(res.next()) {
+        jComboBox5.addItem(res.getString(1));
+    }
+        
+    stat.close();
+    res.close();
+    //conn.close();
+    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
+    {
+    System.err.println (e.getMessage());
+    } 
+       finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    } 
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     /**
      * @param args the command line arguments
