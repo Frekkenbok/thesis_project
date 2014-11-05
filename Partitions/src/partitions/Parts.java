@@ -19,6 +19,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -207,6 +208,7 @@ public class Parts extends javax.swing.JFrame {
           }
           
            path = f.getAbsolutePath();
+           path = path.replace("\\", "/");
            jTextField2.setText(path);
            
           
@@ -232,28 +234,33 @@ public class Parts extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
      try {
-         // Копирование НЕ РАБОТАЕТ!!!!!!!!!!!!
-//        try{
-//          
-//        //String nameTo="C:\\Users\\Евгения\\Desktop\\Диплом\\trial";
-//        FileChannel source = new FileInputStream(new File(path)).getChannel();
-//        FileChannel dest = new FileOutputStream(new File("C:\\Users\\Евгения\\Desktop\\Диплом\\trial")).getChannel();
-//        try {
-//            source.transferTo(0, source.size(), dest);
-//            System.out.println(" "+path+ " "+dest);
-//        } finally {
-//            source.close();
-//            dest.close();
-//        }
-//        System.out.println("File '" + path + "' copied to ' C:\\Users\\Евгения\\Desktop\\Диплом\\trial ");
-//            System.out.println(" "+path+ " "+dest);
-//           }catch (Exception e) {
-//           
-//           }
+    //РАБОТАЕТ!
          CopyFiles.copy(f, new File("C:\\Users\\Евгения\\Desktop\\Диплом\\trial\\" + f.getName()));
      } catch (IOException ex) {
          Logger.getLogger(Parts.class.getName()).log(Level.SEVERE, null, ex);
      }
+     try 
+    {
+        
+    String userName = "root";
+    String password = "Password";
+    String url = "jdbc:mysql://localhost:3306/testdb";
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();
+  
+    String SQL =(" INSERT INTO documentsinfo (DocumentID, CureID, CategoryID, OriginalPath, TranslatedPath, Status, TranslatorID, InsertDate, TranslationDate)\n" +
+                 " VALUES (NULL, 1, 1, '"+ path +"', NULL, 2, NULL, NOW(), NULL)");
+    stat.executeUpdate(SQL);
+    stat.close();
+    //conn.close();
+    }catch (Exception e )
+    {
+    System.err.println (e.getMessage());
+        }
+     finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    }   JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
