@@ -1,0 +1,33 @@
+SELECT E.ID, E.name
+FROM Employee as E
+WHERE Salary > (Select Salary
+FROM Employee as em
+Where E.ID=em.ID)
+
+
+SELECT E.ID, E.name
+FROM Employee AS E INNER JOIN Department AS D
+ON E.department_ID=D.ID
+Group E.ID, E.name, E.salary
+Having MAX(E.salary)
+
+Вывести список ID отделов, количество сотрудников в которых не превышает 3 человек
+
+Select D.ID
+FROM Department AS D INNER JOIN Employee AS E
+ON D.ID=E.department_ID
+GROUP BY D.ID, E.ID
+HAVING COUNT(E.ID)<=3
+
+Вывести список сотрудников, не имеющих назначенного руководителя, работающего в том-же отделе
+SELECT ID, name
+FROM Employee as E
+WHERE Chief_id not exists (Select Chief_id
+FROM employee as em
+WHERE em.department_id=e.department_id)
+
+Найти список ID отделов с максимальной суммарной зарплатой сотрудников
+SELECT Department_ID
+FROM Employees
+GROUP BY Department_ID, salary
+HAVING MAX(salary)
