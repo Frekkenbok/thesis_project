@@ -46,7 +46,6 @@ public class ButtonTest extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jTextField4 = new javax.swing.JTextField();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
@@ -75,6 +74,7 @@ public class ButtonTest extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox();
+        jButton4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -106,17 +106,6 @@ public class ButtonTest extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButton4.setText("Вставка");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton4);
-
         jButton5.setText("Изменить");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -130,6 +119,11 @@ public class ButtonTest extends javax.swing.JFrame {
         });
 
         jButton6.setText("Вставить");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -307,6 +301,16 @@ public class ButtonTest extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Поиск", jPanel2);
 
+        jButton4.setText("Вставка");
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
@@ -341,7 +345,10 @@ public class ButtonTest extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1)))
+                                .addComponent(jTextField1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTabbedPane1)))
                 .addContainerGap())
@@ -350,9 +357,11 @@ public class ButtonTest extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addComponent(jButton4)
+                        .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
@@ -372,9 +381,7 @@ public class ButtonTest extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -459,28 +466,31 @@ public class ButtonTest extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        // Вставка нового препарата в базу   КРИВО РАБОТАЕТ!!!!
-    
-    try 
-    {
+//    
+//    try 
+//    {
+//        
+//    String userName = "root";
+//    String password = "Password";
+//    String url = "jdbc:mysql://localhost:3306/testdb";
+//    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+//    conn = DriverManager.getConnection (url, userName, password);
+//    stat = conn.createStatement();
+//    String SQL =(" INSERT INTO Cures VALUES (NULL, '" +jTextField3.getText()+ "', '"+jTextField5.getText()+ "') ");
+//    stat.executeUpdate(SQL);
+//    stat.close();
+//    //conn.close();
+//    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
+//    {
+//    System.err.println (e.getMessage());
+//        JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
+//        }
+//     finally {
+//        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+//    } 
+        InsertPanel ip = new InsertPanel();
+        ip.setVisible(true);
         
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
-    Class.forName ("com.mysql.jdbc.Driver").newInstance();
-    conn = DriverManager.getConnection (url, userName, password);
-    stat = conn.createStatement();
-    String SQL =(" INSERT INTO Cures VALUES (NULL, '" +jTextField3.getText()+ "', '"+jTextField5.getText()+ "') ");
-    stat.executeUpdate(SQL);
-    stat.close();
-    //conn.close();
-    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
-    {
-    System.err.println (e.getMessage());
-        JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
-        }
-     finally {
-        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
-    } 
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField7KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyReleased
@@ -550,6 +560,12 @@ public class ButtonTest extends javax.swing.JFrame {
         try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
     } 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // Открытие панели на вставку
+        Insert i = new Insert();
+        i.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
