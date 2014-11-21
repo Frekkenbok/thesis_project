@@ -31,6 +31,9 @@ public class Parts extends javax.swing.JFrame {
  Connection conn = null;
  Statement stat = null;
  ResultSet res = null;
+ String userName = "root";
+ String password = "Password";
+ String url = "jdbc:mysql://localhost:3306/testdb";
  File f = null;
     /**
      * Creates new form Parts
@@ -86,6 +89,12 @@ public class Parts extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseEntered(evt);
             }
         });
 
@@ -280,9 +289,6 @@ public class Parts extends javax.swing.JFrame {
         
          try 
     {
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
@@ -354,10 +360,6 @@ public class Parts extends javax.swing.JFrame {
      }
      try 
     {
-        
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
@@ -378,16 +380,79 @@ public class Parts extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
-        // Заполняет комбо препаратами ПРИХОДИТСЯ ЖДАТЬ 10 СЕКУНД!
+//        // Заполняет комбо препаратами ПРИХОДИТСЯ ЖДАТЬ 10 СЕКУНД! ПЕРЕНЕСЛА В ЛИСТЕНЕР ВКЛАДОК
+//        //очистить комбо
+//     jComboBox2.removeAllItems();
+//    // jComboBox2.addItem("Select");
+//        
+//         try 
+//    {
+//    String userName = "root";
+//    String password = "Password";
+//    String url = "jdbc:mysql://localhost:3306/testdb";
+//    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+//    conn = DriverManager.getConnection (url, userName, password);
+//    stat = conn.createStatement();
+//    res = stat.executeQuery(" SELECT CategoryName FROM categories ");
+//    while(res.next()) {
+//        jComboBox2.addItem(res.getString(1));
+//    }
+//        
+//    stat.close();
+//    res.close();
+//    //conn.close();
+//    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
+//    {
+//    System.err.println (e.getMessage());
+//    } 
+//       finally {
+//        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+//    } 
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
+   
+    }//GEN-LAST:event_jComboBox2MouseClicked
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+       //Проба заполнения таблички НЕ РАББОТАЕТ! ВЕРОЯТНО, БАГ!
+//        DefaultTableModel tbl = (DefaultTableModel)jTable1.getModel();
+//            while (tbl.getRowCount() > 0) {
+//            tbl.removeRow(0);
+//            }
+//        
+//       try 
+//    {
+// 
+//    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+//    conn = DriverManager.getConnection (url, userName, password);
+//    stat = conn.createStatement();
+//    res = stat.executeQuery(" select OriginalPath, InsertDate from documentsinfo\n " +
+//                            " where CategoryID IN (select CategoryID from categories\n " +
+//                            " where CategoryName='"+jComboBox2.getSelectedItem()+"') " );
+//            while (res.next()) {
+//            tbl.addRow(new Object[]{new File(res.getString(1)).getName(), res.getString(2)});
+//            }
+//   jTable1.setModel(tbl);
+//            System.out.println(new File(res.getString(1)).getName());
+//    stat.close();
+//    res.close();
+//    conn.close();
+//        
+//    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
+//    {
+//    System.err.println (e.getMessage());
+//    } 
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jTabbedPane1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseEntered
+         // Заполняет комбо препаратами ПРИХОДИТСЯ ЖДАТЬ 10 СЕКУНД!
         //очистить комбо
      jComboBox2.removeAllItems();
     // jComboBox2.addItem("Select");
         
          try 
     {
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
@@ -406,42 +471,8 @@ public class Parts extends javax.swing.JFrame {
        finally {
         try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
     } 
-    }//GEN-LAST:event_jPanel2MouseEntered
-
-    private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
-   //Проба заполнения таблички
-        DefaultTableModel tbl = (DefaultTableModel)jTable1.getModel();
-            while (tbl.getRowCount() > 0) {
-            tbl.removeRow(0);
-            }
-        
-       try 
-    {
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
-    Class.forName ("com.mysql.jdbc.Driver").newInstance();
-    conn = DriverManager.getConnection (url, userName, password);
-    stat = conn.createStatement();
-    res = stat.executeQuery(" select OriginalPath, InsertDate from documentsinfo\n" +
-                            " where CategoryID IN (select CategoryID from categories\n" +
-                            " where CategoryName='"+jComboBox2.getSelectedItem()+"') ");
-            while (res.next()) {
-            tbl.addRow(new Object[]{new File(res.getString(1)).getName(), res.getString(2)});
-            }
-            System.out.println(new File(res.getString(1)).getName());
-    stat.close();
-    res.close();
-    conn.close();
-    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
-    {
-    System.err.println (e.getMessage());
-    } 
-    }//GEN-LAST:event_jComboBox2MouseClicked
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-       
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+         jComboBox2.setSelectedIndex(-1);
+    }//GEN-LAST:event_jTabbedPane1MouseEntered
 
     /**
      * @param args the command line arguments

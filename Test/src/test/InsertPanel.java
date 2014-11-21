@@ -4,17 +4,29 @@
  * and open the template in the editor.
  */
 package test;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 /**
  *
  * @author Евгения
  */
 public class InsertPanel extends javax.swing.JPanel {
-
+String path=null;
+ Connection conn = null;
+ Statement stat = null;
+ ResultSet res = null;
+ String userName = "root";
+ String password = "Password";
+ String url = "jdbc:mysql://localhost:3306/testdb";
+ File f = null;
     /**
      * Creates new form InsertPanel
      */
@@ -32,13 +44,20 @@ public class InsertPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
-        jButton1.setText("Вставить");
+        jButton1.setText("Выбрать документ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Копировать");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -49,54 +68,126 @@ public class InsertPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(236, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jButton2)
                 .addContainerGap(214, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Вставка нового препарата в базу
-         Connection conn = null;
-    try 
+//         Connection conn = null;
+//    try 
+//    {
+//    String userName = "root";
+//    String password = "Password";
+//    String url = "jdbc:mysql://localhost:3306/testdb";
+//    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+//    conn = DriverManager.getConnection (url, userName, password);
+//    Statement stat = conn.createStatement();
+//    String SQL =(" INSERT INTO Cures VALUES (8, '" +jTextField1.getText()+ "', '"+jTextField2.getText()+ "') ");
+//    
+//    stat.executeQuery(SQL);
+//
+//    stat.close();
+//    conn.close();
+//    }catch (Exception e )
+//    {
+//    System.err.println (e.getMessage());
+//    e.printStackTrace();
+//        JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
+//    
+//    } 
+         // Выбрать файл и копировать его 
+        JFileChooser fileChooser = new JFileChooser();
+         fileChooser.showOpenDialog(this);
+         f = fileChooser.getSelectedFile();
+//--- проверить, что это файл и он доступен для чтения
+          if ( !f.isFile() || !f.canRead() ) 
+          {
+              System.out.println("Файл "+f.getName()+" проблемы какие-то.");
+              return;
+          }
+          
+           path = f.getAbsolutePath();
+           path = path.replace("\\", "/");
+           jTextField2.setText(path);
+    
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Копирование файла
+           try {
+    //РАБОТАЕТ!
+         CopyFiles.copy(f, new File("C:\\Users\\Евгения\\Desktop\\Диплом\\trial\\" + f.getName()));
+     } catch (IOException ex) {
+         Logger.getLogger(ButtonTest.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     try 
     {
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
-    Statement stat = conn.createStatement();
-    String SQL =(" INSERT INTO Cures VALUES (8, '" +jTextField1.getText()+ "', '"+jTextField2.getText()+ "') ");
-    
-    stat.executeQuery(SQL);
-
+    stat = conn.createStatement();  
+    String SQL =(" INSERT INTO documentsinfo (DocumentID, CureID, CategoryID, OriginalPath, TranslatedPath, Status, TranslatorID, InsertDate, TranslationDate)\n" +
+                 " VALUES (NULL, 1, 1, '"+ path +"', NULL, 2, NULL, NOW(), NULL)");
+    stat.executeUpdate(SQL);
     stat.close();
-    conn.close();
     }catch (Exception e )
     {
     System.err.println (e.getMessage());
-    e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
-    
-    } 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }
+     finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    }   JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
+    }//GEN-LAST:event_jButton2ActionPerformed
+ public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ButtonTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ButtonTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ButtonTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ButtonTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InsertPanel().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
