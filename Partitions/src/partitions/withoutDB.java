@@ -155,7 +155,7 @@ public class withoutDB extends javax.swing.JFrame {
         // передача в лейбл на другой фрейм
         //фрейм1.JLabel.setText(фрейм2.JTextField.getText());
         Parts p = new Parts();
-        p.jLabel2.setText(jTextField1.getText());
+       // p.jLabel2.setText(jTextField1.getText());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
