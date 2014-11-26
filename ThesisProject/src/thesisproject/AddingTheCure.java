@@ -78,6 +78,12 @@ public class AddingTheCure extends javax.swing.JFrame {
 
         jLabel4.setText("Статус перевода");
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("Добавить препарат");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,6 +206,22 @@ public class AddingTheCure extends javax.swing.JFrame {
         try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
     }  
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // 
+         if(Combo.getCombo().equals("Новый")) 
+            {
+            ComboID.setComboID(0);
+            } else 
+                if (Combo.equals("Готов"))
+                {
+                ComboID=1;
+                } else
+                    if (Combo.equals("В процессе"))
+                    {
+                    ComboID=2;
+                    } else ComboID=-1;
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

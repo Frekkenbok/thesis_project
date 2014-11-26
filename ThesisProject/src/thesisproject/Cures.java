@@ -24,8 +24,8 @@ Connection conn = null;
  String userName = "root";
  String password = "Password";
  String url = "jdbc:mysql://localhost:3306/testdb";
- int ComboID;
- String Combo;
+ public int ComboID;
+ public String Combo;
     /**
      * Creates new form Cures
      */
@@ -52,8 +52,6 @@ Connection conn = null;
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jButton4 = new javax.swing.JButton();
@@ -115,14 +113,6 @@ Connection conn = null;
 
         jLabel1.setText("Препарат");
 
-        jLabel2.setText("Дата добавления");
-
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField2KeyTyped(evt);
-            }
-        });
-
         jLabel3.setText("Статус");
 
         jButton4.setText("Обновить");
@@ -144,17 +134,13 @@ Connection conn = null;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 187, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,11 +149,7 @@ Connection conn = null;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -289,7 +271,6 @@ Connection conn = null;
         DefaultTableModel tbl1 = (DefaultTableModel)jTable1.getModel();
          IDCure.setIDCure(Integer.parseInt((tbl1.getValueAt(jTable1.getSelectedRow(), 0).toString())));
         jTextField1.setText(tbl1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        jTextField2.setText(tbl1.getValueAt(jTable1.getSelectedRow(), 2).toString());
    //     jComboBox1.setSelectedItem(tbl1.getValueAt(jTable1.getSelectedRow(), 3).toString());
        
         Combo = tbl1.getValueAt(jTable1.getSelectedRow(), 3).toString();
@@ -335,7 +316,7 @@ try
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Валидация текст боксов и обновление данных.
-              if ( jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()) 
+              if ( jTextField1.getText().isEmpty()) 
         
        {
         JOptionPane.showMessageDialog(null, "Заполните все поля!");
@@ -346,7 +327,7 @@ try
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();  
-    String SQL =(" update cures set CureName = '"+jTextField1.getText()+"', InsertDate='"+jTextField2.getText()+"'"
+    String SQL =(" update cures set CureName = '"+jTextField1.getText()+"'"
                + ", StatusID = "+(jComboBox1.getSelectedIndex()+1)+" Where CureID = "+IDCure.getIDCure()+" ");
     stat.executeUpdate(SQL);
     stat.close();
@@ -360,17 +341,6 @@ try
               }
 
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
-        // Валидация. В дату могу записать только цифры, НО ТАКЖЕ НЕ МОГУ НАПИСАТЬ ДВОЕТОЧИЕ!
-        char a = evt.getKeyChar();
-          if (!Character.isDigit(a)
-              && (a != '\b')
-              && (a != '-')) {
-            evt.consume(); 
-          }
-
-    }//GEN-LAST:event_jTextField2KeyTyped
 
     /**
      * @param args the command line arguments
@@ -414,7 +384,6 @@ try
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -422,6 +391,5 @@ try
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
