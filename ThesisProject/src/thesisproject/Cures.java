@@ -24,7 +24,8 @@ Connection conn = null;
  String userName = "root";
  String password = "Password";
  String url = "jdbc:mysql://localhost:3306/testdb";
- 
+ int ComboID;
+ String Combo;
     /**
      * Creates new form Cures
      */
@@ -116,9 +117,13 @@ Connection conn = null;
 
         jLabel2.setText("Дата добавления");
 
-        jLabel3.setText("Статус");
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel3.setText("Статус");
 
         jButton4.setText("Обновить");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +237,7 @@ Connection conn = null;
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
-    res = stat.executeQuery(" select CureID, CureName, InsertDate, Status from v_cureStatus ");
+    res = stat.executeQuery(" select CureID, CureName, InsertDate, Status from v_curestatus ");
     while (res.next()) {
     tbl.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3), res.getString(4)});
     }        
@@ -278,29 +283,94 @@ Connection conn = null;
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // Заполнение тексфилдов и комбобокса по нажатию на табличку. (Для апдейта)
+       
         jPanel2.setVisible(true);
         
         DefaultTableModel tbl1 = (DefaultTableModel)jTable1.getModel();
+         IDCure.setIDCure(Integer.parseInt((tbl1.getValueAt(jTable1.getSelectedRow(), 0).toString())));
         jTextField1.setText(tbl1.getValueAt(jTable1.getSelectedRow(), 1).toString());
         jTextField2.setText(tbl1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+   //     jComboBox1.setSelectedItem(tbl1.getValueAt(jTable1.getSelectedRow(), 3).toString());
+       
+        Combo = tbl1.getValueAt(jTable1.getSelectedRow(), 3).toString();
+            if(Combo.equals("Новый")) 
+            {
+            ComboID=0;
+            } else 
+                if (Combo.equals("Готов"))
+                {
+                ComboID=1;
+                } else
+                    if (Combo.equals("В процессе"))
+                    {
+                    ComboID=2;
+                    } else ComboID=-1;
+        jComboBox1.setSelectedIndex(ComboID);
+        System.out.println(IDCure.getIDCure()+ " "+ Combo);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // при загрузке этого фрейма панелька с кнопкой Обновить скрывается.
         jPanel2.setVisible(false);
+try 
+    {
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();
+    res = stat.executeQuery(" select Status from Statuses ");
+    while (res.next()) {
+    jComboBox1.addItem(res.getString(1));
+    }        
+    stat.close();
+    res.close();
+    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
+    {
+    System.err.println (e.getMessage());
+    } 
+       finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    } 
+ jComboBox1.setSelectedIndex(-1);
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Валидация текст боксов и обновление данных.
               if ( jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()) 
+        
        {
         JOptionPane.showMessageDialog(null, "Заполните все поля!");
        } else
               {
-              
+               try 
+    {
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();  
+    String SQL =(" update cures set CureName = '"+jTextField1.getText()+"', InsertDate='"+jTextField2.getText()+"'"
+               + ", StatusID = "+(jComboBox1.getSelectedIndex()+1)+" Where CureID = "+IDCure.getIDCure()+" ");
+    stat.executeUpdate(SQL);
+    stat.close();
+    }catch (Exception e )
+    {
+    System.err.println (e.getMessage());
+        }
+     finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    }  
               }
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        // Валидация. В дату могу записать только цифры, НО ТАКЖЕ НЕ МОГУ НАПИСАТЬ ДВОЕТОЧИЕ!
+        char a = evt.getKeyChar();
+          if (!Character.isDigit(a)
+              && (a != '\b')
+              && (a != '-')) {
+            evt.consume(); 
+          }
+
+    }//GEN-LAST:event_jTextField2KeyTyped
 
     /**
      * @param args the command line arguments

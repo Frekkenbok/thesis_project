@@ -8,6 +8,7 @@ package thesisproject;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -159,10 +160,25 @@ public class AddingTheCure extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-           // Заполнение комбобокса
-        jComboBox1.addItem(1);
-        jComboBox1.addItem(2);
-        jComboBox1.addItem(3);
+           // Заполнение комбобокса из бд (select Status from Statuses)
+       try 
+    {
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();
+    res = stat.executeQuery(" select Status from Statuses ");
+    while (res.next()) {
+    jComboBox1.addItem(res.getString(1));
+    }        
+    stat.close();
+    res.close();
+    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
+    {
+    System.err.println (e.getMessage());
+    } 
+       finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    } 
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

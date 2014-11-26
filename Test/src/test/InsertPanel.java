@@ -54,6 +54,12 @@ String path=null;
             }
         });
 
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
+
         jButton2.setText("Копировать");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,6 +159,16 @@ String path=null;
         try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
     }   JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        // Проверка на написание символов. Валидация.
+        char a = evt.getKeyChar();
+          if (!Character.isDigit(a)
+              && (a != '\b')) {
+            evt.consume(); 
+          }
+
+    }//GEN-LAST:event_jTextField2KeyTyped
  public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
