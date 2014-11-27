@@ -244,13 +244,13 @@ public class Translators extends javax.swing.JFrame {
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
-    res = stat.executeQuery(" select TranslatorID, Name, Sirname, Fathername, email, Phone from translators ");
+    res = stat.executeQuery(" select Name, Sirname, Fathername, email, Phone from translators ");
     while (res.next()) {
     jLabel6.setText(res.getString(1));
     Trtbl.addRow(new Object[]{res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6)});
     }        
     jTable1.setModel(Trtbl);
-        System.out.println(jLabel6.getText());
+     
     stat.close();
     res.close();
     }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
