@@ -24,8 +24,8 @@ Connection conn = null;
  String userName = "root";
  String password = "Password";
  String url = "jdbc:mysql://localhost:3306/testdb";
- public int ComboID;
- public String Combo;
+// int ComboID;
+// String Combo;
     /**
      * Creates new form Cures
      */
@@ -115,6 +115,12 @@ Connection conn = null;
 
         jLabel3.setText("Статус");
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         jButton4.setText("Обновить");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,20 +133,20 @@ Connection conn = null;
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 187, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jTextField1)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 187, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,11 +155,11 @@ Connection conn = null;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(49, 49, 49)
                 .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -273,21 +279,21 @@ Connection conn = null;
         jTextField1.setText(tbl1.getValueAt(jTable1.getSelectedRow(), 1).toString());
    //     jComboBox1.setSelectedItem(tbl1.getValueAt(jTable1.getSelectedRow(), 3).toString());
        
-        Combo = tbl1.getValueAt(jTable1.getSelectedRow(), 3).toString();
-            if(Combo.equals("Новый")) 
+       toCombo.setCombo(tbl1.getValueAt(jTable1.getSelectedRow(), 3).toString());
+            if(toCombo.getCombo().equals("Новый")) 
             {
-            ComboID=0;
+            toCombo.setComboID(0);
             } else 
-                if (Combo.equals("Готов"))
+                if (toCombo.getCombo().equals("Готов"))
                 {
-                ComboID=1;
+                toCombo.setComboID(1);
                 } else
-                    if (Combo.equals("В процессе"))
+                    if (toCombo.getCombo().equals("В процессе"))
                     {
-                    ComboID=2;
-                    } else ComboID=-1;
-        jComboBox1.setSelectedIndex(ComboID);
-        System.out.println(IDCure.getIDCure()+ " "+ Combo);
+                    toCombo.setComboID(2);
+                    } else toCombo.setComboID(-1);
+        jComboBox1.setSelectedIndex(toCombo.getComboID());
+        System.out.println(IDCure.getIDCure()+ " "+ toCombo.getCombo());
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -341,6 +347,10 @@ try
               }
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

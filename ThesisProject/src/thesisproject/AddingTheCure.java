@@ -188,14 +188,29 @@ public class AddingTheCure extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Добавление препарата в базу
+        // Добавление препарата в базу ---НЕ РАБОТАЕТ!
+        
+          if(jComboBox1.getSelectedItem().equals("Новый")) 
+            {
+            toCombo.setComboID(0);
+            } else 
+                if (jComboBox1.getSelectedItem().equals("Готов"))
+                {
+                toCombo.setComboID(1);
+                } else
+                    if (jComboBox1.getSelectedItem().equals("В процессе"))
+                    {
+                    toCombo.setComboID(2);
+                    } else toCombo.setComboID(-1);
+         // jComboBox1.setSelectedIndex(toCombo.getComboID());
+          System.out.println(toCombo.getComboID());
           try 
     {
    Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();  
     String SQL =(" insert into cures values "
-            + " (null, '"+jTextField1.getText()+"', NOW(), '"+ jTextArea1.getText()+"', "+jComboBox1.getSelectedItem() +")");
+            + " (null, '"+jTextField1.getText()+"', NOW(), '"+ jTextArea1.getText()+"', "+(toCombo.getComboID()+1) +")");
     stat.executeUpdate(SQL);
     stat.close();
     }catch (Exception e )
@@ -209,18 +224,7 @@ public class AddingTheCure extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // 
-         if(Combo.getCombo().equals("Новый")) 
-            {
-            ComboID.setComboID(0);
-            } else 
-                if (Combo.equals("Готов"))
-                {
-                ComboID=1;
-                } else
-                    if (Combo.equals("В процессе"))
-                    {
-                    ComboID=2;
-                    } else ComboID=-1;
+      
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**

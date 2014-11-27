@@ -10,23 +10,23 @@ package thesisproject;
  * @author Евгения
  */
 public class toCombo {
-String Combo;
-int ComboID;
+public static String Combob;
+public static int CombobID;
 
-    public String getCombo() {
-        return Combo;
+    public static String getCombo() {
+        return Combob;
     }
 
-    public void setCombo(String Combo) {
-        this.Combo = Combo;
+    public static void setCombo(String Combo) {
+        Combob = Combo;
     }
 
-    public int getComboID() {
-        return ComboID;
+    public static int getComboID() {
+        return CombobID;
     }
 
-    public void setComboID(int ComboID) {
-        this.ComboID = ComboID;
+    public static void setComboID(int ComboID) {
+        CombobID = ComboID;
     }
 
 }
