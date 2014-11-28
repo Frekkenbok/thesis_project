@@ -57,6 +57,8 @@ public class Translators extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -71,17 +73,17 @@ public class Translators extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Имя", "Фамилия", "Отчество", "Email", "Phone"
+                "№", "Имя", "Фамилия", "Отчество", "Email", "Phone"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -89,6 +91,11 @@ public class Translators extends javax.swing.JFrame {
             }
         });
         jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setText("Имя");
@@ -100,6 +107,12 @@ public class Translators extends javax.swing.JFrame {
         jLabel4.setText("Email");
 
         jLabel5.setText("Телефон");
+
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
+        });
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -114,6 +127,20 @@ public class Translators extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Изменить данные");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Удалить");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -151,7 +178,10 @@ public class Translators extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -189,7 +219,11 @@ public class Translators extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)))
                 .addGap(69, 69, 69))
         );
 
@@ -213,7 +247,7 @@ public class Translators extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6))
         );
@@ -228,9 +262,32 @@ public class Translators extends javax.swing.JFrame {
        {
         JOptionPane.showMessageDialog(null, "Заполните все поля!");
        } else {
-        // а здесь исерт
-            
+        
+          try 
+    {
+   Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();  
+    String SQL =(" insert into translators (TranslatorID, Name, Sirname, Fathername, Email, Phone)\n" +
+                 " values (NULL, '"+jTextField1.getText()+"', '"+jTextField2.getText()+"'"
+               + ", '"+jTextField3.getText()+"', '"+jTextField4.getText()+"', '"+jTextField5.getText()+"')");
+    stat.executeUpdate(SQL);
+    stat.close();
+    }catch (Exception e )
+    {
+    System.err.println (e.getMessage());
         }
+     finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    }   
+          // Очистка текстфилдов
+          jTextField1.setText(null);
+          jTextField2.setText(null);
+          jTextField3.setText(null);
+          jTextField4.setText(null);
+          jTextField5.setText(null);
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -244,10 +301,9 @@ public class Translators extends javax.swing.JFrame {
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
-    res = stat.executeQuery(" select Name, Sirname, Fathername, email, Phone from translators ");
+    res = stat.executeQuery(" select TranslatorID, Name, Sirname, Fathername, email, Phone from translators ");
     while (res.next()) {
-    jLabel6.setText(res.getString(1));
-    Trtbl.addRow(new Object[]{res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6)});
+    Trtbl.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6)});
     }        
     jTable1.setModel(Trtbl);
      
@@ -264,8 +320,90 @@ public class Translators extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // Прячем лейбл, где хранится ID переводчика
-        jLabel6.setVisible(false);
+       jLabel6.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        //Вводить только циферки и не более 11 символов
+        char a = evt.getKeyChar();
+          if (!Character.isDigit(a)
+              && (a != '\b')) {
+            evt.consume(); 
+          }         
+          if (jTextField5.getText().length() >= 11) {
+            jTextField5.setText(jTextField5.getText().substring(0, 11));
+        }
+
+
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Удалить сотрудника (пока просто DELETE, позже соорудить транзакцию)
+        
+        DefaultTableModel Trtbl = (DefaultTableModel)jTable1.getModel();
+        IDTranslators.setIDTranslators(Integer.parseInt((Trtbl.getValueAt(jTable1.getSelectedRow(), 0).toString())));
+        System.out.println(IDTranslators.getIDTranslators());
+        try 
+    {
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();  
+    String SQL =(" delete from translators where TranslatorID="+ IDTranslators.getIDTranslators() +" ");
+    stat.executeUpdate(SQL);
+    stat.close();
+    }catch (Exception e )
+    {
+    System.err.println (e.getMessage());
+        }
+     finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    }  
+        jTable1.setModel(Trtbl);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // Заполнение текстфилдов по клику на строку
+        DefaultTableModel Trtbl = (DefaultTableModel)jTable1.getModel();
+        IDTranslators.setIDTranslators(Integer.parseInt((Trtbl.getValueAt(jTable1.getSelectedRow(), 0).toString())));
+        jTextField1.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 1).toString());
+        jTextField2.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        jTextField3.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 3).toString());
+        jTextField4.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 4).toString());
+        jTextField5.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 5).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Апдейт данных о переводчике
+         if ( jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()
+                || jTextField4.getText().isEmpty() || jTextField5.getText().isEmpty())   
+       {
+        JOptionPane.showMessageDialog(null, "Заполните все поля!");
+       } else {
+         // updet is right here
+         try 
+    {
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();  
+    String SQL =(" update translators set Name = '"+jTextField1.getText()+"', Sirname = '"+jTextField2.getText()+"',"
+            + " Fathername= '"+jTextField3.getText()+"', email='"+jTextField4.getText()+"', Phone='"+jTextField5.getText()+"'"
+            + " Where TranslatorID = "+IDTranslators.getIDTranslators()+" ");
+    stat.executeUpdate(SQL);
+    stat.close();
+    }catch (Exception e )
+    {
+    System.err.println (e.getMessage());
+        }
+     finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    }  
+          jTextField1.setText(null);
+          jTextField2.setText(null);
+          jTextField3.setText(null);
+          jTextField4.setText(null);
+          jTextField5.setText(null);                  
+         }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,6 +443,8 @@ public class Translators extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
