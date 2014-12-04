@@ -2,11 +2,14 @@
 package test;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +23,9 @@ public class ButtonTest extends javax.swing.JFrame {
  Connection conn = null;
  Statement stat = null;
  ResultSet res = null;
+ String userName = "root";
+    String password = "Password";
+    String url = "jdbc:mysql://localhost:3306/testdb";
     /**
      * Creates new form ButtonTest
      */
@@ -75,6 +81,7 @@ public class ButtonTest extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox();
         jButton4 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -311,6 +318,13 @@ public class ButtonTest extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("мульти");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
@@ -328,6 +342,8 @@ public class ButtonTest extends javax.swing.JFrame {
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton7)
+                        .addGap(57, 57, 57)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3))
@@ -384,8 +400,10 @@ public class ButtonTest extends javax.swing.JFrame {
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton7)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -424,27 +442,31 @@ public class ButtonTest extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Диалоговое окно выбора файла
+        // Диалоговое окно выбора файла ФАЙЛ НЕ ВЫБИРАЕТ! ДРУГАЯ КНОПКА ВЫБИРАЕТ МНОЖЕСТВО ФАЙЛОВ
          JFileChooser fileChooser = new JFileChooser();
+         fileChooser.setMultiSelectionEnabled(true);
          fileChooser.showOpenDialog(this);
-         File f = fileChooser.getSelectedFile();
+         File[] f = fileChooser.getSelectedFiles();
 //--- проверить, что это файл и он доступен для чтения
-          if ( !f.isFile() || !f.canRead() ) 
-          {
-              System.out.println("Файл "+f.getName()+" проблемы какие-то.");
-              return;
-          }
-          
-           path = f.getAbsolutePath();
+//          if ( !f.isFile() || !f.canRead() ) 
+//          {
+//              System.out.println("Файл "+f.getName()+" проблемы какие-то.");
+//              return;
+//          }
+          // надо цикл написать.  прогонять там путь. записать в другой массив пути этих файлов, чтобы потом
+         // записать в йикле в параметр на вставку в бд
+        // for (f.length < 1; f++)
+         {
+         
+         }
+          // path = f.getAbsolutePath();
            path = path.replace("\\", "/");
            jTextField4.setText(path);
-           
+          // А тут должен быть Prepared statement с параметрами 
     try 
     {
         
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
+    
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
@@ -503,9 +525,6 @@ public class ButtonTest extends javax.swing.JFrame {
         
        try 
     {
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
@@ -538,9 +557,6 @@ public class ButtonTest extends javax.swing.JFrame {
         
          try 
     {
-    String userName = "root";
-    String password = "Password";
-    String url = "jdbc:mysql://localhost:3306/testdb";
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
@@ -566,6 +582,47 @@ public class ButtonTest extends javax.swing.JFrame {
         Insert i = new Insert();
         i.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // попытка копирования нескольких документов. 
+        JFileChooser fileChooser = new JFileChooser();
+         fileChooser.setMultiSelectionEnabled(true);
+         fileChooser.showOpenDialog(this);
+         File[] f = fileChooser.getSelectedFiles();
+        for ( int i=0; i<f.length; i++)
+        {
+        f[i].getAbsolutePath();
+            System.out.println( f[i].getAbsolutePath());
+            try 
+    {
+        
+    
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();
+  
+    String SQL =(" INSERT INTO documentsinfo (DocumentID, CureID, CategoryID, OriginalPath, TranslatedPath, Status, TranslatorID, InsertDate, TranslationDate)\n" +
+                 " VALUES (NULL, 1, 1, '"+ path +"', NULL, 2, NULL, NOW(), NULL)");
+    stat.executeUpdate(SQL);
+    stat.close();
+    //conn.close();
+    }catch (Exception e )
+    {
+    System.err.println (e.getMessage());
+        JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
+        }
+     finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    } 
+            try {
+                CopyFiles.copy(f[i], new File("C:\\Users\\Евгения\\Desktop\\Диплом\\trial\\" + f[i].getName()));
+            } catch (IOException ex) {
+                Logger.getLogger(ButtonTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+         
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -609,6 +666,7 @@ public class ButtonTest extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
