@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,6 +24,7 @@ public class ButtonTest extends javax.swing.JFrame {
  Connection conn = null;
  Statement stat = null;
  ResultSet res = null;
+ PreparedStatement ps = null;
  String userName = "root";
     String password = "Password";
     String url = "jdbc:mysql://localhost:3306/testdb";
@@ -591,21 +593,17 @@ public class ButtonTest extends javax.swing.JFrame {
          File[] f = fileChooser.getSelectedFiles();
         for ( int i=0; i<f.length; i++)
         {
-        f[i].getAbsolutePath();
-            System.out.println( f[i].getAbsolutePath());
+      String fi =  f[i].getAbsolutePath().replace("\\", "/");
+            System.out.println( fi);
             try 
     {
-        
-    
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
-  
     String SQL =(" INSERT INTO documentsinfo (DocumentID, CureID, CategoryID, OriginalPath, TranslatedPath, Status, TranslatorID, InsertDate, TranslationDate)\n" +
-                 " VALUES (NULL, 1, 1, '"+ path +"', NULL, 2, NULL, NOW(), NULL)");
+                 " VALUES (NULL, 2, 2, '"+ fi +"', NULL, 2, NULL, NOW(), NULL)");
     stat.executeUpdate(SQL);
     stat.close();
-    //conn.close();
     }catch (Exception e )
     {
     System.err.println (e.getMessage());
