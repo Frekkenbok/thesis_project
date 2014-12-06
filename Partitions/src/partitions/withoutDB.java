@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Евгения
  */
 public class withoutDB extends javax.swing.JFrame {
-
+    public String x;
     /**
      * Creates new form withoutDB
      */
@@ -154,8 +154,8 @@ public class withoutDB extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // передача в лейбл на другой фрейм
         //фрейм1.JLabel.setText(фрейм2.JTextField.getText());
-        Parts p = new Parts();
-       // p.jLabel2.setText(jTextField1.getText());
+       x =(jTextField1.getText());
+       //p.jLabel2.setText(jTextField1.getText());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

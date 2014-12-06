@@ -22,6 +22,7 @@
                   <Component id="jTextField2" min="-2" pref="371" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                  <Component id="jTextField1" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
@@ -36,7 +37,9 @@
               <Component id="jTextField2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="214" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="188" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -62,6 +65,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField1">
     </Component>
   </SubComponents>
 </Form>
