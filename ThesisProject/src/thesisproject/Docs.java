@@ -5,11 +5,17 @@
  */
 package thesisproject;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -56,9 +62,11 @@ Connection conn = null;
         jLabel6 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -131,7 +139,19 @@ Connection conn = null;
             }
         });
 
-        jLabel7.setText("КАК РЕАЛИЗОВАТЬ МНОЖЕСТВЕННУЮ ФИЛЬТРАЦИЮ");
+        jButton3.setText("Добавить");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Очистить");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,7 +162,9 @@ Connection conn = null;
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -150,20 +172,17 @@ Connection conn = null;
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -173,7 +192,9 @@ Connection conn = null;
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,14 +202,14 @@ Connection conn = null;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel7))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -204,11 +225,21 @@ Connection conn = null;
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
+
+        jMenuItem1.setText("Вставить новый документ/ы");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -260,41 +291,50 @@ Connection conn = null;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Фильтрация документа 
-// если все фильтры выбраны, то
-       if (!jTextField1.getText().isEmpty() || !jTextField2.getText().isEmpty() || !(jComboBox1.getSelectedItem() == null)
-               || !(jComboBox2.getSelectedItem() == null) || !!(jComboBox1.getSelectedItem() == null))
-        
-        try {
+//Фильтр работает, но можно написать лучше, с помощтю массива
         DefaultTableModel tblD = (DefaultTableModel)jTable1.getModel();
             while (tblD.getRowCount() > 0) {
             tblD.removeRow(0);
             }
-         Class.forName ("com.mysql.jdbc.Driver").newInstance();
+               try 
+    {
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
-    res = stat.executeQuery(" select DocumentID, CureName, CategoryName, OriginalPath, TranslatedPath, Document, Status,\n" +
-                            " Sirname, InsertDate, TranslationDate from vw_docsinfo \n" +
-                            " where InsertDate LIKE '"+jTextField1.getText()+"%'  \n" +
-                            " AND CategoryName LIKE '"+jComboBox1.getSelectedItem()+"%' AND Status = '"+jComboBox2.getSelectedItem()+"' \n" +
-                            " AND CureName LIKE '"+jComboBox3.getSelectedItem()+"%' AND Document LIKE '"+jTextField2.getText()+"%' ");
-    while (res.next()) {
+    String SQL =(" select DocumentID, CureName, CategoryName, OriginalPath, TranslatedPath, Document, Status,\n " +
+                 " Sirname, InsertDate, TranslationDate from vw_docsinfo\n " +
+                 " where InsertDate LIKE '%' ");
+    if (!jTextField1.getText().isEmpty()){
+    SQL +=" and InsertDate LIKE '"+jTextField1.getText()+"%'";
+    } 
+            if (!jTextField2.getText().isEmpty()) {
+            SQL +=" and Document LIKE '"+jTextField2.getText()+"%'";
+            }
+                  if (!(jComboBox1.getSelectedItem() == null)) {
+                  SQL +=" and CategoryName LIKE '"+jComboBox1.getSelectedItem()+"%'";
+                  }
+                          if (!(jComboBox2.getSelectedItem() == null)) {
+                          SQL +=" and Status ='"+jComboBox2.getSelectedItem()+"'";
+                          }
+                                if (!(jComboBox3.getSelectedItem() == null)) {
+                                SQL +=" and CureName LIKE '"+jComboBox3.getSelectedItem()+"%'";
+                                }
+    System.out.println(SQL);
+    res = stat.executeQuery(SQL);
+    while (res.next()){
     tblD.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3), res.getString(4), 
                 res.getString(5), res.getString(6), res.getString(7), res.getString(8), res.getString(9), res.getString(10)});
-    }        
-    jTable1.setModel(tblD);
+    }
     stat.close();
     res.close();
-    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
+    }catch (Exception e )
     {
     System.err.println (e.getMessage());
-    } 
-       finally {
+        JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
+        }
+     finally {
         try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
-    }  else {
-           System.out.println("Что-то пошло не так");       //если не все выбраны,то
-       }
-        
+    } 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -393,7 +433,63 @@ Connection conn = null;
        finally {
         try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
     } 
+        
+         jComboBox1.setSelectedIndex(-1);
+         jComboBox2.setSelectedIndex(-1);
+         jComboBox3.setSelectedIndex(-1);
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Переход на панель добавления
+        AddingDocs ad = new AddingDocs();
+        ad.setVisible(true); 
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // Вставка и копирование документа/ов
+//       JFileChooser fileChooser = new JFileChooser();
+//         fileChooser.setMultiSelectionEnabled(true);
+//         fileChooser.showOpenDialog(this);
+//         File[] f = fileChooser.getSelectedFiles();
+//        for ( int i=0; i<f.length; i++)
+//        {
+//      String fi =  f[i].getAbsolutePath().replace("\\", "/");
+//            System.out.println( fi);
+//            try // вставка в бд
+//    {
+//    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+//    conn = DriverManager.getConnection (url, userName, password);
+//    stat = conn.createStatement();
+//    String SQL =(" INSERT INTO documentsinfo (DocumentID, CureID, CategoryID, OriginalPath, TranslatedPath, Document, Status, TranslatorID, InsertDate, TranslationDate)\n" +
+//                 " VALUES (NULL, 2, 2, '"+ fi +"', NULL, NULL, 1, NULL, NOW(), NULL)");
+//    stat.executeUpdate(SQL);
+//    stat.close();
+//    }catch (Exception e )
+//    {
+//    System.err.println (e.getMessage());
+//        JOptionPane.showMessageDialog(null, "Запись добавлена успешно");
+//        }
+//     finally {
+//        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+//    } 
+//            try {
+//                CopyFiles.copy(f[i], new File("C:\\Users\\Евгения\\Desktop\\Диплом\\trial\\" + f[i].getName()));
+//            } catch (IOException ex) {
+//                Logger.getLogger(Docs.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            
+//        }
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // очитска полей для фильтра
+        jTextField1.setText(null);
+        jTextField2.setText(null);
+        jComboBox1.setSelectedIndex(-1);
+        jComboBox2.setSelectedIndex(-1);
+        jComboBox3.setSelectedIndex(-1);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -433,6 +529,8 @@ Connection conn = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -442,10 +540,10 @@ Connection conn = null;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
