@@ -188,7 +188,7 @@ public class AddingTheCure extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Добавление препарата в базу ---НЕ РАБОТАЕТ!
+        // Добавление препарата в базу ---НЕ РАБОТАЕТ!или работает
         
           if(jComboBox1.getSelectedItem().equals("Новый")) 
             {
