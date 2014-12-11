@@ -81,6 +81,7 @@ Connection conn = null;
         jTextField5 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -181,6 +182,8 @@ Connection conn = null;
 
         jLabel9.setText("Категория");
 
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GMP", "Доверенность", "Стабильность" }));
+
         jLabel11.setText("Документ");
 
         jLabel12.setText("Статус");
@@ -197,6 +200,13 @@ Connection conn = null;
 
         jTextField6.setEditable(false);
 
+        jButton5.setText("Внести изменения");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -207,23 +217,23 @@ Connection conn = null;
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBox5, 0, 121, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3)
+                                .addComponent(jTextField3))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)))
+                                .addComponent(jComboBox4, 0, 117, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
                         .addGap(37, 37, 37)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -237,9 +247,10 @@ Connection conn = null;
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField5)
-                                    .addComponent(jTextField6)))))
+                                    .addComponent(jTextField6)))
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(303, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,10 +278,15 @@ Connection conn = null;
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -314,7 +330,7 @@ Connection conn = null;
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -629,24 +645,20 @@ Connection conn = null;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // Появление панели с щаполненными чекбоксами и текстфилдами в соответствии с таблицей. НЕ ДОДЕЛАНА!!!
+        // Появление панели с щаполненными чекбоксами и текстфилдами в соответствии с таблицей. 
+        //НЕ ДОДЕЛАНА!!! Комбо с переводчиками нет текущего значения! C категориями печалька!!!
         jPanel2.setVisible(true);
-          try //стоит ли так делать? два резулт сета в одном открытии коннекта? 
+          try 
     {
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();
-    res = stat.executeQuery("  select CategoryName from Categories");
+    res = stat.executeQuery("  Select Sirname from translators");
      while(res.next()){
-    jComboBox4.addItem(res.getString(1));
-     }
-     ResultSet res2 = stat.executeQuery("  Select Sirname from translators");
-     while(res2.next()) {
-    jComboBox6.addItem(res2.getString(1));
+    jComboBox6.addItem(res.getString(1));
      }
     stat.close();
     res.close();
-     res2.close();
     }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
     {
     System.err.println (e.getMessage());
@@ -654,25 +666,6 @@ Connection conn = null;
        finally {
         try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
     } 
-       
-////         try 
-////    {
-////    Class.forName ("com.mysql.jdbc.Driver").newInstance();
-////    conn = DriverManager.getConnection (url, userName, password);
-////    stat = conn.createStatement();
-////    res = stat.executeQuery("  Select Sirname from translators ");
-////     while(res.next()) {
-////    jComboBox6.addItem(res.getString(1));
-////     }
-////    stat.close();
-////    res.close();
-////    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
-////    {
-////    System.err.println (e.getMessage());
-////    } 
-////       finally {
-////        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
-////    } 
         
 //         jComboBox4.setSelectedIndex(-1);
 //         jComboBox5.setSelectedIndex(-1);
@@ -681,6 +674,8 @@ Connection conn = null;
         jLabel10.setText(tblD.getValueAt(jTable1.getSelectedRow(), 4).toString());
         jTextField3.setText(tblD.getValueAt(jTable1.getSelectedRow(), 1).toString());
         jTextField4.setText(tblD.getValueAt(jTable1.getSelectedRow(), 5).toString());
+        jTextField5.setText(tblD.getValueAt(jTable1.getSelectedRow(), 8).toString());
+        jTextField6.setText(tblD.getValueAt(jTable1.getSelectedRow(), 9).toString());
         toCombo.setCombo(tblD.getValueAt(jTable1.getSelectedRow(), 6).toString());
             if(toCombo.getCombo().equals("Новый")) 
             {
@@ -694,27 +689,68 @@ Connection conn = null;
                     {
                     toCombo.setComboID(2);
                     } else toCombo.setComboID(-1);
-        //jComboBox1.setSelectedIndex(toCombo.getComboID());
-        toCategoryCombo.setCatCombo(tblD.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        jComboBox5.setSelectedIndex(toCombo.getComboID());
+       
        // jComboBox4.setSelectedItem(toCategoryCombo.getCatCombo());
         //jComboBox4.insertItemAt(toCategoryCombo.getCatCombo(), 0);
         
-                //
+        
+        toCategoryCombo.setCatCombo(tblD.getValueAt(jTable1.getSelectedRow(), 2).toString());
         System.out.println(toCategoryCombo.getCatCombo());
-//             if(toCategoryCombo.getCatCombo().equals("Новый")) 
-//            {
-//            toCombo.setComboID(0);
-//            } else 
-//                if (toCombo.getCombo().equals("Готов"))
-//                {
-//                toCombo.setComboID(1);
-//                } else
-//                    if (toCombo.getCombo().equals("В процессе"))
-//                    {
-//                    toCombo.setComboID(2);
-//                    } else toCombo.setComboID(-1);
-//        jComboBox4.setSelectedIndex(toCombo.getComboID());
+             if(toCategoryCombo.getCatCombo().equals("GMP")) 
+            {
+            toCategoryCombo.setCatComboID(0);
+            } else 
+                if (toCategoryCombo.getCatCombo().equals("Доверенность"))
+                {
+                toCategoryCombo.setCatComboID(1);
+                } else
+                    if (toCategoryCombo.getCatCombo().equals("Стабильность"))
+                    {
+                    toCategoryCombo.setCatComboID(2);
+                    } else toCategoryCombo.setCatComboID(-1);
+        jComboBox4.setSelectedIndex(toCategoryCombo.getCatComboID());
+        System.out.println(toCategoryCombo.getCatComboID()+" "+toCategoryCombo.getCatCombo());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // Update таблицы documentsinfo НЕ РАБОТАЕТ!
+        //Пока валидация не нужна
+//         if ( jTextField3.getText().isEmpty() &&  jTextField4.getText().isEmpty() && (jComboBox4.getSelectedItem() == null)
+//                 && (jComboBox5.getSelectedItem() == null) && (jComboBox6.getSelectedItem() == null)) 
+//        
+//       {
+//        JOptionPane.showMessageDialog(null, "Заполните все поля!");
+//       } else
+//              {
+        DefaultTableModel tblD = (DefaultTableModel)jTable1.getModel();
+    //    IDDocs.setIDDoc(tblD.getValueAt(jTable1.getSelectedRow(), 0));
+//        IDCure.setCure(jTextField3.getText());
+//        toCategoryCombo.setCatCombo(jComboBox4.getSelectedItem().toString());       // getComboID выводит 0!
+//        toCombo.setCombo(jComboBox5.getSelectedItem().toString());                  // выводит неверные числа
+//        IDTranslators.setTraslator(jComboBox6.getSelectedItem().toString());
+//        System.out.println(IDCure.getCure()+" "+IDCure.getIDCure()+" "+" "+ toCategoryCombo.getCatComboID()+
+//                " "+tblD.getValueAt(jTable1.getSelectedRow(), 0)+" "+toCombo.getComboID());
+               try 
+    {
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();  
+    String SQL =(" Update documentsinfo \n" +
+                 " set CureID="+IDCure.getIDCure()+", CategoryID="+toCategoryCombo.getCatComboID()+",  Document='"+jTextField4.getText()+"',\n" +
+                 " Status="+toCombo.getComboID()+", TranslatorID="+IDTranslators.getIDTranslators()+" \n" +
+                 " Where DocumentID="+tblD.getValueAt(jTable1.getSelectedRow(), 0)+"");
+    stat.executeUpdate(SQL);
+    stat.close();
+    }catch (Exception e )
+    {
+    System.err.println (e.getMessage());
+        }
+     finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    }  
+            
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -756,6 +792,7 @@ Connection conn = null;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
