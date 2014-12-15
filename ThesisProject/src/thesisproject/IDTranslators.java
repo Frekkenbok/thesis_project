@@ -11,6 +11,15 @@ package thesisproject;
  */
 public class IDTranslators {
     public static int TrID;
+    public static String Translator;
+    
+    public static String getTraslator() {
+        return Translator;
+    }
+
+    public static void setTraslator(String TranslatorDB) {
+        Translator = TranslatorDB;
+    }
     
     public static void setIDTranslators(int TranslatorID) {
         TrID = TranslatorID;

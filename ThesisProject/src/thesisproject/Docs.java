@@ -32,6 +32,7 @@ Connection conn = null;
  String url = "jdbc:mysql://localhost:3306/testdb";
  int Preparat;
  int Translator;
+ HashMap <String, Integer > Translators = new HashMap <>();
     /**
      * Creates new form Docs
      */
@@ -196,6 +197,11 @@ Connection conn = null;
         });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPanel2ComponentShown(evt);
+            }
+        });
 
         jLabel8.setText("Препарат");
 
@@ -267,25 +273,25 @@ Connection conn = null;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox5, 0, 121, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox4, 0, 117, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboBox5, 0, 121, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField4))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField3))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jComboBox4, 0, 117, Short.MAX_VALUE)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -314,15 +320,15 @@ Connection conn = null;
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                             .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel7)
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -742,8 +748,8 @@ Connection conn = null;
         jPanel2.setVisible(true);
         jMenuItem2.setVisible(true);
          DefaultTableModel tblD = (DefaultTableModel)jTable1.getModel();
-    // HashMap <Integer, String> TrMap = new HashMap <>(); // Пробуем HashMap
-     //TrMap.put(Integer.parseInt((String) tblD.getValueAt(jTable1.getSelectedRow(), 0)), tblD.getValueAt(jTable1.getSelectedRow(), 7).toString());
+     HashMap <Integer, String> TrMap = new HashMap <>(); // Пробуем HashMap
+     TrMap.put(Integer.parseInt((String) tblD.getValueAt(jTable1.getSelectedRow(), 0)), tblD.getValueAt(jTable1.getSelectedRow(), 7).toString());
 
           try 
     {
@@ -779,11 +785,11 @@ Connection conn = null;
             if(toCombo.getCombo().equals("Новый")) 
             {
             toCombo.setComboID(0);
-            } else 
-                if (toCombo.getCombo().equals("Готов"))
-                {
-                toCombo.setComboID(1);
-                } else
+            } 
+            if (toCombo.getCombo().equals("Готов"))
+            {
+            toCombo.setComboID(1);
+            } 
                     if (toCombo.getCombo().equals("В процессе"))
                     {
                     toCombo.setComboID(2);
@@ -970,6 +976,27 @@ Connection conn = null;
             
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
+        // Когда появляется панелька, заполняется комбо с назначением
+         try 
+    {
+    Class.forName ("com.mysql.jdbc.Driver").newInstance();
+    conn = DriverManager.getConnection (url, userName, password);
+    stat = conn.createStatement();
+    res = stat.executeQuery("  Select Sirname, TranslatorID from Translators ");
+    res.next();
+    Translator=(Integer.parseInt(res.getString(1)));
+    stat.close();
+    res.close();
+    }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
+    {
+    System.err.println (e.getMessage());
+    } 
+       finally {
+        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+    } 
+    }//GEN-LAST:event_jPanel2ComponentShown
 
     /**
      * @param args the command line arguments

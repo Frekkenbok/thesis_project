@@ -12,6 +12,15 @@ package thesisproject;
 // Класс для получения айдишника Препаратов - Cures
 public class IDCure { 
     public static int cID;
+    public static String Cure;
+    
+    public static String getCure() {
+        return Cure;
+    }
+
+    public static void setCure(String CureDB) {
+        Cure = CureDB;
+    }
     
     public static void setIDCure(int CureID) {
         cID = CureID;

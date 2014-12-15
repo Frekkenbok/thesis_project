@@ -6,6 +6,7 @@
 package partitions;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -52,7 +53,7 @@ public class withoutDB extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "1", "2", "2", "4"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -117,8 +118,8 @@ public class withoutDB extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,6 +132,11 @@ public class withoutDB extends javax.swing.JFrame {
         jComboBox2.addItem("potato");
         jComboBox2.addItem("orange");
         jComboBox2.setSelectedIndex(-1);
+        String[] s = {"lol", "mother", "sister", "tomato"};
+        DefaultTableModel tbl = (DefaultTableModel)jTable1.getModel();
+           
+           tbl.addRow(s);
+         tbl.isCellEditable(1, 1);
     }//GEN-LAST:event_formWindowOpened
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
