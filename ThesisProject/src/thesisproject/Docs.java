@@ -703,52 +703,62 @@ Connection conn = null;
         jMenuItem2.setVisible(true);
         jLabel17.setVisible(true);
          DefaultTableModel tblD = (DefaultTableModel)jTable1.getModel();
-//     HashMap <Integer, String> TrMap = new HashMap <>(); // Пробуем HashMap
-//     TrMap.put(Integer.parseInt((String) tblD.getValueAt(jTable1.getSelectedRow(), 0)), tblD.getValueAt(jTable1.getSelectedRow(), 7).toString());
-
+// Обход NullPointerException
+         if (tblD.getValueAt(jTable1.getSelectedRow(), 5).toString()==null) {
+         jTextField4.setText("");
+         } else jTextField4.setText(tblD.getValueAt(jTable1.getSelectedRow(), 5).toString());
+//         if (tblD.getValueAt(jTable1.getSelectedRow(), 7).toString()==null){
+//         jComboBox6.setSelectedIndex(-1);
+//         } else   // тут выбор переводчика
+         if (tblD.getValueAt(jTable1.getSelectedRow(), 9).toString()==null) {
+         jTextField6.setText("");
+         } else jTextField6.setText(tblD.getValueAt(jTable1.getSelectedRow(), 9).toString());
+    
          // Заполнение текстфилдов и комбо в соответствии с таблицей
         jLabel7.setText((String) tblD.getValueAt(jTable1.getSelectedRow(), 3)); // не выводит текст!
         jLabel17.setText((String) tblD.getValueAt(jTable1.getSelectedRow(), 0)); 
         jTextField3.setText(tblD.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        jTextField4.setText(tblD.getValueAt(jTable1.getSelectedRow(), 5).toString());
         jTextField5.setText(tblD.getValueAt(jTable1.getSelectedRow(), 8).toString());
-        jTextField6.setText(tblD.getValueAt(jTable1.getSelectedRow(), 9).toString());
+        
         toCombo.setCombo(tblD.getValueAt(jTable1.getSelectedRow(), 6).toString()); // уставновка комбо статус
-            if(toCombo.getCombo().equals("Новый")) 
+        String str = tblD.getValueAt(jTable1.getSelectedRow(), 6).toString();     
+        if(str.equals("Новый")) 
             {
             toCombo.setComboID(0);
-            } 
-            if (toCombo.getCombo().equals("Готов"))
-            {
-            toCombo.setComboID(1);
-            } 
-            if (toCombo.getCombo().equals("В процессе"))
-            {
-            toCombo.setComboID(2);
-            } else toCombo.setComboID(-1);
+            } else 
+                if (str.equals("Готов"))
+                {
+                toCombo.setComboID(1);
+                } else
+                    if (str.equals("В процессе"))
+                    {
+                    toCombo.setComboID(2);
+                    } else toCombo.setComboID(-1);
+          
         jComboBox5.setSelectedIndex(toCombo.getComboID());
-        
-        toCategoryCombo.setCatCombo(tblD.getValueAt(jTable1.getSelectedRow(), 2).toString()); // установка комбо категория
-        System.out.println(toCategoryCombo.getCatCombo());
-            if(toCategoryCombo.getCatCombo().equals("GMP")) 
-            {
-            toCategoryCombo.setCatComboID(0);
-            }  
-            if (toCategoryCombo.getCatCombo().equals("Доверенность"))
-            {
-            toCategoryCombo.setCatComboID(1);
-            } 
-            if (toCategoryCombo.getCatCombo().equals("Стабильность"))
-            {
-            toCategoryCombo.setCatComboID(2);
-            } else toCategoryCombo.setCatComboID(-1);
-        jComboBox4.setSelectedIndex(toCategoryCombo.getCatComboID());
-        System.out.println(toCategoryCombo.getCatComboID()+" "+toCategoryCombo.getCatCombo());
-        // Комбо переводчики
+        System.out.println(toCombo.getCombo()+" :"+toCombo.getComboID()+" :"+str);
+        //С категориями не получается
+//        toCategoryCombo.setCatCombo(tblD.getValueAt(jTable1.getSelectedRow(), 2).toString()); // установка комбо категория
+//        System.out.println(toCategoryCombo.getCatCombo());
+//            if(toCategoryCombo.getCatCombo().equals("GMP")) 
+//            {
+//            toCategoryCombo.setCatComboID(0);
+//            }  
+//            if (toCategoryCombo.getCatCombo().equals("Доверенность"))
+//            {
+//            toCategoryCombo.setCatComboID(1);
+//            } 
+//            if (toCategoryCombo.getCatCombo().equals("Стабильность"))
+//            {
+//            toCategoryCombo.setCatComboID(2);
+//            } else toCategoryCombo.setCatComboID(-1);
+//        jComboBox4.setSelectedIndex(toCategoryCombo.getCatComboID());
+//        System.out.println(toCategoryCombo.getCatComboID()+" "+toCategoryCombo.getCatCombo());
+        // Комбо переводчики не работает
         if ((tblD.getValueAt(jTable1.getSelectedRow(), 9).toString())!=jComboBox6.getSelectedItem()){
         IDTranslators.setTraslator(tblD.getValueAt(jTable1.getSelectedRow(), 9).toString());
         IDTranslators.setIDTranslators(0);
-        System.out.println(IDTranslators.getIDTranslators());
+       // System.out.println(IDTranslators.getIDTranslators());
         jComboBox6.setSelectedIndex(IDTranslators.getIDTranslators());
         }
         
@@ -761,7 +771,7 @@ Connection conn = null;
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // Update таблицы documentsinfo НЕ РАБОТАЕТ!
+        // Update таблицы documentsinfo Работает, но неккоректно! С препаратами подумать Illegal opeation on empty set
         //Пока валидация не нужна
 //         if ( jTextField3.getText().isEmpty() &&  jTextField4.getText().isEmpty() && (jComboBox4.getSelectedItem() == null)
 //                 && (jComboBox5.getSelectedItem() == null) && (jComboBox6.getSelectedItem() == null)) 
@@ -846,14 +856,14 @@ Connection conn = null;
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // Назначение переводчика с автоматическим статусом "В процессе" не доработана!!!
+        // Назначение переводчика с автоматическим статусом "В процессе" 
          DefaultTableModel tblD = (DefaultTableModel)jTable1.getModel();
             try 
     {
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
     conn = DriverManager.getConnection (url, userName, password);
     stat = conn.createStatement();  
-    String SQL =(" update documentsinfo set TranslatorID = "+Translators.get(jComboBox7.getSelectedItem().toString())+" , StatusID=3 "+
+    String SQL =(" update documentsinfo set TranslatorID = "+Translators.get(jComboBox7.getSelectedItem().toString())+" , Status=3 "+
                  " where DocumentID="+tblD.getValueAt(jTable1.getSelectedRow(), 0)+"");
         System.out.println(Translators.get(jComboBox7.getSelectedItem().toString())+" "+tblD.getValueAt(jTable1.getSelectedRow(), 0));
     stat.executeUpdate(SQL);
@@ -928,7 +938,7 @@ Connection conn = null;
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
-        // Когда появляется панелька, заполняется комбо с назначением
+        // Когда появляется панелька, заполняется 2 комбо с переводчиками
            try 
     {
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
