@@ -67,7 +67,6 @@ Connection conn = null;
         jLabel6 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
@@ -183,13 +182,6 @@ Connection conn = null;
             }
         });
 
-        jButton3.setText("Добавить");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         jButton4.setText("Очистить");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,8 +210,6 @@ Connection conn = null;
         });
 
         jLabel9.setText("Категория");
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GMP", "Доверенность", "Стабильность" }));
 
         jLabel11.setText("Документ");
 
@@ -400,9 +390,7 @@ Connection conn = null;
                         .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton1)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -424,9 +412,7 @@ Connection conn = null;
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addGap(12, 12, 12)
+                        .addGap(41, 41, 41)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
@@ -643,12 +629,6 @@ Connection conn = null;
          jComboBox3.setSelectedIndex(-1);
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Переход на панель добавления
-        AddingDocs ad = new AddingDocs();
-        ad.setVisible(true); 
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // Вставка и копирование документа/ов
         JFileChooser fileChooser = new JFileChooser();
@@ -703,22 +683,41 @@ Connection conn = null;
         jMenuItem2.setVisible(true);
         jLabel17.setVisible(true);
          DefaultTableModel tblD = (DefaultTableModel)jTable1.getModel();
-// Обход NullPointerException
-         if (tblD.getValueAt(jTable1.getSelectedRow(), 5).toString()==null) {
-         jTextField4.setText("");
-         } else jTextField4.setText(tblD.getValueAt(jTable1.getSelectedRow(), 5).toString());
-//         if (tblD.getValueAt(jTable1.getSelectedRow(), 7).toString()==null){
-//         jComboBox6.setSelectedIndex(-1);
-//         } else   // тут выбор переводчика
-         if (tblD.getValueAt(jTable1.getSelectedRow(), 9).toString()==null) {
-         jTextField6.setText("");
-         } else jTextField6.setText(tblD.getValueAt(jTable1.getSelectedRow(), 9).toString());
-    
-         // Заполнение текстфилдов и комбо в соответствии с таблицей
+         String Categ = tblD.getValueAt(jTable1.getSelectedRow(), 2).toString();
+         String Document= tblD.getValueAt(jTable1.getSelectedRow(), 5).toString();
+         String Translatory = tblD.getValueAt(jTable1.getSelectedRow(), 7).toString();
+         String TranslateDate = tblD.getValueAt(jTable1.getSelectedRow(), 9).toString();
+// Заполнение текстфилдов и комбо в соответствии с таблицей
         jLabel7.setText((String) tblD.getValueAt(jTable1.getSelectedRow(), 3)); // не выводит текст!
         jLabel17.setText((String) tblD.getValueAt(jTable1.getSelectedRow(), 0)); 
         jTextField3.setText(tblD.getValueAt(jTable1.getSelectedRow(), 1).toString());
         jTextField5.setText(tblD.getValueAt(jTable1.getSelectedRow(), 8).toString());
+                for (int i=0; i<= jComboBox4.getItemCount(); i++){
+                     if(Categ==jComboBox4.getItemAt(i)) {
+                     jComboBox4.setSelectedIndex(i);
+                     }
+                     System.out.println(i+" "+jComboBox4.getItemAt(i)+Categ);
+                 }
+// Обход NullPointerException
+         if (Document==null) {
+         jTextField4.setText("");
+         } else jTextField4.setText(Document);
+         if (Translatory==null){
+         jComboBox6.setSelectedIndex(-1);
+         } else 
+             //Комбо переводчики
+            for (int i=0; i<= jComboBox6.getItemCount(); i++){
+                 if(Translatory==jComboBox6.getItemAt(i)) {
+                 jComboBox6.setSelectedIndex(i);
+                     System.out.println(i);
+                 }
+                 System.out.println(i+" "+jComboBox6.getItemAt(i));
+            }
+         if (TranslateDate==null) {
+         jTextField6.setText("");
+         } else jTextField6.setText(TranslateDate);
+    
+        
         
         toCombo.setCombo(tblD.getValueAt(jTable1.getSelectedRow(), 6).toString()); // уставновка комбо статус
         String str = tblD.getValueAt(jTable1.getSelectedRow(), 6).toString();     
@@ -754,13 +753,14 @@ Connection conn = null;
 //            } else toCategoryCombo.setCatComboID(-1);
 //        jComboBox4.setSelectedIndex(toCategoryCombo.getCatComboID());
 //        System.out.println(toCategoryCombo.getCatComboID()+" "+toCategoryCombo.getCatCombo());
-        // Комбо переводчики не работает
-        if ((tblD.getValueAt(jTable1.getSelectedRow(), 9).toString())!=jComboBox6.getSelectedItem()){
-        IDTranslators.setTraslator(tblD.getValueAt(jTable1.getSelectedRow(), 9).toString());
-        IDTranslators.setIDTranslators(0);
+        // Комбо с категориями
+        
+//        if ((tblD.getValueAt(jTable1.getSelectedRow(), 9).toString())!=jComboBox6.getSelectedItem()){
+//        IDTranslators.setTraslator(tblD.getValueAt(jTable1.getSelectedRow(), 9).toString());
+//        IDTranslators.setIDTranslators(0);
        // System.out.println(IDTranslators.getIDTranslators());
-        jComboBox6.setSelectedIndex(IDTranslators.getIDTranslators());
-        }
+//        jComboBox6.setSelectedIndex(IDTranslators.getIDTranslators());
+//        }
         
 //        if (tblD.getValueAt(jTable1.getSelectedRow(), 4).toString()==null || tblD.getValueAt(jTable1.getSelectedRow(), 5).toString()==null
 //            || tblD.getValueAt(jTable1.getSelectedRow(), 7).toString()==null || tblD.getValueAt(jTable1.getSelectedRow(), 9).toString()==null)
@@ -1003,7 +1003,6 @@ Connection conn = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
