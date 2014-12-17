@@ -557,17 +557,19 @@ public class Parts extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        // Клик на таблицу и имена в текстфилд
+        // Клик на таблицу и имена в текстфилд и в комбо!!!
          DefaultTableModel tbl2 = (DefaultTableModel)jTable2.getModel();
          
          jTextField3.setText(tbl2.getValueAt(jTable2.getSelectedRow(), 0).toString());
          for (int i=0; i<= jComboBox3.getItemCount(); i++){
-             if(tbl2.getValueAt(jTable2.getSelectedRow(), 0).toString()==jComboBox3.getSelectedItem()) {
-             jComboBox3.setSelectedItem(tbl2.getValueAt(jTable2.getSelectedRow(), 0));
+             if(tbl2.getValueAt(jTable2.getSelectedRow(), 0).toString()==jComboBox3.getItemAt(i)) {
+             jComboBox3.setSelectedIndex(i);
+             System.out.println(i+" "+jComboBox3.getItemAt(i));
              }
+             System.out.println(i+" "+jComboBox3.getItemAt(i));
          }
          //jComboBox3.getItemAt(Integer.parseInt((String) jComboBox3.getSelectedItem()));
-      Cursor cur = jComboBox3.getCursor();
+     
     }//GEN-LAST:event_jTable2MouseClicked
 
     /**
