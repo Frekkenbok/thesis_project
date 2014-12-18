@@ -677,7 +677,7 @@ Connection conn = null;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // Появление панели с щаполненными чекбоксами и текстфилдами в соответствии с таблицей. 
+        // Появление панели с заполненными чекбоксами и текстфилдами в соответствии с таблицей. 
         //НЕ ДОДЕЛАНА!!! Комбо с переводчиками нет текущего значения! C категориями печалька!!!
         jPanel2.setVisible(true);
         jMenuItem2.setVisible(true);
@@ -692,11 +692,12 @@ Connection conn = null;
         jLabel17.setText((String) tblD.getValueAt(jTable1.getSelectedRow(), 0)); 
         jTextField3.setText(tblD.getValueAt(jTable1.getSelectedRow(), 1).toString());
         jTextField5.setText(tblD.getValueAt(jTable1.getSelectedRow(), 8).toString());
-                for (int i=0; i<= jComboBox4.getItemCount(); i++){
-                     if(Categ==jComboBox4.getItemAt(i)) {
-                     jComboBox4.setSelectedIndex(i);
+                for (int i=0; i<= jComboBox4.getItemCount()-1; i++){
+                     if(Categ.equals(jComboBox4.getItemAt(i).toString())) {
+                     jComboBox4.setSelectedIndex(i);        // не работает!!!
+                         System.out.println(i+" "+Categ); // не работает!!!
                      }
-                     System.out.println(i+" "+jComboBox4.getItemAt(i)+Categ);
+                     System.out.println(i+" "+jComboBox4.getItemAt(i)+ " "+ Categ);
                  }
 // Обход NullPointerException
          if (Document==null) {
@@ -706,18 +707,26 @@ Connection conn = null;
          jComboBox6.setSelectedIndex(-1);
          } else 
              //Комбо переводчики
-            for (int i=0; i<= jComboBox6.getItemCount(); i++){
-                 if(Translatory==jComboBox6.getItemAt(i)) {
+            for (int i=0; i<= jComboBox6.getItemCount()-1; i++){
+                 if(Translatory.equals(jComboBox6.getItemAt(i).toString())) {
                  jComboBox6.setSelectedIndex(i);
-                     System.out.println(i);
+                     System.out.println(i+" "+ Translatory);
+                     
                  }
-                 System.out.println(i+" "+jComboBox6.getItemAt(i));
+                 System.out.println(i+" "+jComboBox6.getItemAt(i)+" "+Translatory);
             }
          if (TranslateDate==null) {
          jTextField6.setText("");
-         } else jTextField6.setText(TranslateDate);
+         } else 
+             jTextField6.setText(TranslateDate);
     
-        
+//        try {
+//            jTextField6.setText(TranslateDate);
+//        }
+//        catch(NullPointerException e){
+//            System.out.println("Просто тут ничего нет");
+//        jTextField6.setText(null);
+//        }
         
         toCombo.setCombo(tblD.getValueAt(jTable1.getSelectedRow(), 6).toString()); // уставновка комбо статус
         String str = tblD.getValueAt(jTable1.getSelectedRow(), 6).toString();     
