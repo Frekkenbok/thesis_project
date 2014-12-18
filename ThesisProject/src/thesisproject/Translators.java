@@ -387,7 +387,14 @@ public class Translators extends javax.swing.JFrame {
         IDTranslators.setIDTranslators(Integer.parseInt((Trtbl.getValueAt(jTable1.getSelectedRow(), 0).toString())));
         jTextField1.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 1).toString());
         jTextField2.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 2).toString());
-        jTextField3.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 3).toString());
+        String Translator;
+         try {
+         Translator=Trtbl.getValueAt(jTable1.getSelectedRow(), 3).toString();
+         jTextField3.setText(Translator);
+         }
+         catch (NullPointerException npe){
+         jTextField3.setText(null);
+         }
         jTextField4.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 4).toString());
         jTextField5.setText(Trtbl.getValueAt(jTable1.getSelectedRow(), 5).toString());
          try 

@@ -235,17 +235,17 @@ public class Parts extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Lol",  new Integer(7)},
-                {"Lol2",  new Integer(18)},
-                {"Kathy",  new Integer(22)},
-                {"Inna",  new Integer(40)}
+                {"Lol",  new Integer(7), "lol@gmail.com"},
+                {"Lol2",  new Integer(18), null},
+                {"Kathy",  new Integer(22), "yaya@yandex.ru"},
+                {"Inna",  new Integer(40), null}
             },
             new String [] {
-                "Имя", "Возраст"
+                "Имя", "Возраст", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -560,7 +560,15 @@ public class Parts extends javax.swing.JFrame {
         // Клик на таблицу и имена в текстфилд и в комбо!!!
          DefaultTableModel tbl2 = (DefaultTableModel)jTable2.getModel();
          
-         jTextField3.setText(tbl2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+         try {     
+         String email = tbl2.getValueAt(jTable2.getSelectedRow(), 2).toString();
+         jTextField3.setText(email);
+         } catch (NullPointerException npe) {
+             jTextField3.setText("Empty");
+//         throw new NullPointerException("Empty row!!");
+         }
+         
+         
          for (int i=0; i<= jComboBox3.getItemCount(); i++){
              if(tbl2.getValueAt(jTable2.getSelectedRow(), 0).toString()==jComboBox3.getItemAt(i)) {
              jComboBox3.setSelectedIndex(i);

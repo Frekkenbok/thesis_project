@@ -363,7 +363,7 @@
                 <Component class="javax.swing.JTable" name="jTable2">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="4">
+                      <Table columnCount="3" rowCount="4">
                         <Column editable="true" title="&#x418;&#x43c;&#x44f;" type="java.lang.String">
                           <Data value="Lol"/>
                           <Data value="Lol2"/>
@@ -376,10 +376,21 @@
                           <Data value="22"/>
                           <Data value="40"/>
                         </Column>
+                        <Column editable="true" title="Email" type="java.lang.String">
+                          <Data value="lol@gmail.com"/>
+                          <Data value="null"/>
+                          <Data value="yaya@yandex.ru"/>
+                          <Data value="null"/>
+                        </Column>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
