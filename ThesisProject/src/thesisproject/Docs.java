@@ -94,6 +94,7 @@ Connection conn = null;
         jComboBox7 = new javax.swing.JComboBox();
         jButton6 = new javax.swing.JButton();
         jComboBox8 = new javax.swing.JComboBox();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -357,6 +358,13 @@ Connection conn = null;
                 .addGap(31, 31, 31))
         );
 
+        jButton3.setText("Показать документ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -392,7 +400,8 @@ Connection conn = null;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
@@ -405,7 +414,9 @@ Connection conn = null;
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addGap(12, 12, 12)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
@@ -573,6 +584,7 @@ Connection conn = null;
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 Комбо с категориями с помощью HashMap
       jPanel2.setVisible(false);
       jMenuItem2.setVisible(false);
+      jButton3.setVisible(false);
              try 
     {
     Class.forName ("com.mysql.jdbc.Driver").newInstance();
@@ -679,6 +691,7 @@ Connection conn = null;
         // Появление панели с заполненными чекбоксами и текстфилдами в соответствии с таблицей. 
         jPanel2.setVisible(true);
         jMenuItem2.setVisible(true);
+        jButton3.setVisible(true);
         jLabel17.setVisible(true);
          DefaultTableModel tblD = (DefaultTableModel)jTable1.getModel();
          String Categ = tblD.getValueAt(jTable1.getSelectedRow(), 2).toString();
@@ -908,6 +921,17 @@ Connection conn = null;
     } 
     }//GEN-LAST:event_jPanel2ComponentShown
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         // Проба открытия текстового файла
+        int row = jTable1.getSelectedRow();
+        String value = (jTable1.getModel().getValueAt(row, 3).toString());
+        try {
+            Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler "+value);
+            } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -946,6 +970,7 @@ Connection conn = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

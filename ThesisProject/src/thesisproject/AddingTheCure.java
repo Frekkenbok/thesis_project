@@ -7,6 +7,7 @@ package thesisproject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ import java.sql.Statement;
  */
 public class AddingTheCure extends javax.swing.JFrame {
  Connection conn = null;
+ PreparedStatement prs = null;
  Statement stat = null;
  ResultSet res = null;
  String userName = "root";
@@ -204,6 +206,22 @@ public class AddingTheCure extends javax.swing.JFrame {
                     } else toCombo.setComboID(-1);
          // jComboBox1.setSelectedIndex(toCombo.getComboID());
           System.out.println(toCombo.getComboID());
+//          try { // не работает!!!
+//                Class.forName ("com.mysql.jdbc.Driver").newInstance();
+//                conn = DriverManager.getConnection (url, userName, password); 
+//                prs = conn.prepareStatement("insert into cures ( CureName, InsertDate, Description, StatusID) "
+//                                            + " values ( ?, NOW(), ?, ?) ");
+//prs.setString(1, jTextField1.getText());
+//prs.setString(3, jTextArea1.getText());
+//prs.setInt(4, (toCombo.getComboID()+1));
+//int rowsaffected = prs.executeUpdate();
+//                System.out.println(rowsaffected+" row(s) affected.");
+//prs.close();
+//            } catch (Exception e) {
+//            }
+//            finally {
+//        try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+//    }
           try 
     {
    Class.forName ("com.mysql.jdbc.Driver").newInstance();
