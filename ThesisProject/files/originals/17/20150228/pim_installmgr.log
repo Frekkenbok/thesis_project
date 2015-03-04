@@ -1,0 +1,43 @@
+  PTC Installation assistant log file
+========= PIM Version: 2.7.0 ==========
+Вт окт 22 21:02:22 13
+=======================================
+      Mathcad Prime Installation
+=======================================
+В результате теста обнаружено, что клиентский профиль Microsoft .NET Framework 4 установлен. 
+В результате теста обнаружено, что платформа Microsoft .NET Framework 4 установлена. 
+Задан корневой путь установки: C:\Program Files\PTC
+В результате теста обнаружено, что клиентский профиль Microsoft .NET Framework 4 установлен. 
+В результате теста обнаружено, что платформа Microsoft .NET Framework 4 установлена. 
+В результате теста обнаружено, что клиентский профиль Microsoft .NET Framework 4 установлен. 
+В результате теста обнаружено, что платформа Microsoft .NET Framework 4 установлена. 
+В результате теста обнаружено, что клиентский профиль Microsoft .NET Framework 4 установлен. 
+В результате теста обнаружено, что платформа Microsoft .NET Framework 4 установлена. 
+Запуск установки PTC Mathcad.
+Запуск установки Mathcad PDSi viewable support.
+Запуск установки Quality Agent.
+Вт окт 22 21:02:41 13
+Загрузить файл: http://esd.ptc.com/files/PIM/MED-60893-CD-220_F000/adobe/Data1.cab.
+В результате теста обнаружено, что клиентский профиль Microsoft .NET Framework 4 установлен. 
+В результате теста обнаружено, что платформа Microsoft .NET Framework 4 установлена. 
+В результате теста обнаружено, что клиентский профиль Microsoft .NET Framework 4 установлен. 
+В результате теста обнаружено, что платформа Microsoft .NET Framework 4 установлена. 
+В результате теста обнаружено, что версия PTC Mathcad 15 M010 или более поздняя версия не установлена. 
+		Cached file: C:\Users\Евгения\AppData\Roaming\PTC Download\MED-60893-CD-220_F000\adobe\Data1.cab in 784 seconds.
+Загрузить файл: http://esd.ptc.com/files/PIM/MED-60893-CD-220_F000/adobe/MathCAD.mst.
+		Cached file: C:\Users\Евгения\AppData\Roaming\PTC Download\MED-60893-CD-220_F000\adobe\MathCAD.mst in 2 seconds.
+Загрузить файл: http://esd.ptc.com/files/PIM/MED-60893-CD-220_F000/adobe/Distillr.msi.
+		Cached file: C:\Users\Евгения\AppData\Roaming\PTC Download\MED-60893-CD-220_F000\adobe\Distillr.msi in 11 seconds.
+Вт окт 22 21:16:02 13
+Вт окт 22 21:16:02 13
+Загрузить файл: http://esd.ptc.com/files/PIM/MED-60893-CD-220_F000/install/addon/qualityagent_32.msi.
+		Cached file: C:\Users\Евгения\AppData\Roaming\PTC Download\MED-60893-CD-220_F000\install\addon\qualityagent_32.msi in 94 seconds.
+Вт окт 22 21:17:38 13
+Вт окт 22 21:17:38 13
+Загрузить файл: http://esd.ptc.com/files/PIM/MED-60893-CD-220_F000/ptcsh0/PrimeWixInstaller_64bit.msi.
+		Cached file: C:\Users\Евгения\AppData\Roaming\PTC Download\MED-60893-CD-220_F000\ptcsh0\PrimeWixInstaller_64bit.msi in 1276 seconds.
+Загрузить файл: http://esd.ptc.com/files/PIM/MED-60893-CD-220_F000/ptcsh0/ptc6.cab.
+		Cached file: C:\Users\Евгения\AppData\Roaming\PTC Download\MED-60893-CD-220_F000\ptcsh0\ptc6.cab in 260 seconds.
+Вт окт 22 21:43:19 13
+Извлечение файла архива из C:\Users\Евгения\AppData\Roaming\PTC Download\MED-60893-CD-220_F000\ptcsh0\ptc6.cab на путь C:\Program Files\PTC\Mathcad Prime 3.0.
+До свидания!

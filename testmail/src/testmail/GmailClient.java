@@ -128,11 +128,12 @@ public class GmailClient {
                     String contentType = message[i].getContentType();
                     String attachFiles = "";
 
-                    if (contentType.contains("multipart")) {
+                    if (contentType.toLowerCase().contains("multipart")) {
                         // content may contain attachments
                         Multipart multipart = (Multipart) message[i].getContent();
 
                         System.out.println(multipart.getCount());
+                        
 
                         for (int j = 0; i < multipart.getCount(); j++) {
                             BodyPart bodyPart = multipart.getBodyPart(j);
@@ -143,7 +144,7 @@ public class GmailClient {
 
                             // getFilename always have wrong characters set
 
-
+                            System.out.println("2");
                             //String filename = bodyPart.getFileName();
                             String filename = MimeUtility.decodeText(bodyPart.getFileName());
                             File f = new File(saveDir + File.separator + filename);
@@ -154,7 +155,7 @@ public class GmailClient {
                                 if (f == null) {
                                     return;
                                 }
-
+                                System.out.println("3");
                                 FileOutputStream fos = new FileOutputStream(f);
                                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                                 BufferedInputStream bis = new BufferedInputStream(is);
@@ -180,7 +181,7 @@ public class GmailClient {
             }
             folder.close(true);
             store.close();
-        } catch (Exception e) {
+        } catch (MessagingException | IOException e) {
             System.out.println(e.toString());
         }
     }
