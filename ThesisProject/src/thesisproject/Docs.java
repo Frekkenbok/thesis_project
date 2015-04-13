@@ -42,6 +42,7 @@ Connection conn = null;
  HashMap <String, Integer > Cure = new HashMap <>();
  HashMap <String, String > Mail = new HashMap <>();
  OutMessage message;
+ InMessage InMsg;
 
     /**
      * Creates new form Docs
@@ -1165,10 +1166,10 @@ Connection conn = null;
             res = stat.executeQuery("Select DocumentID, CureID From documentsinfo Where Status=3");
             while(res.next()){
                 System.out.println(res.getString(1)+ " "+res.getString(2));    
-            InMessage inMessage = new InMessage();
-            inMessage.setInid(res.getString(1));
-            inMessage.setCureId(res.getString(2));
-            inMessages.add(inMessage);
+                InMessage inMessage = new InMessage();
+                inMessage.setInid(res.getString(1));
+                inMessage.setCureId(res.getString(2));
+                inMessages.add(inMessage);
             
             }
             stat.close();
@@ -1184,9 +1185,30 @@ Connection conn = null;
         GmailClient gmailClient = new GmailClient();
         for (int i = 0; i < inMessages.size(); i++) {
             gmailClient.readGmail(inMessages.get(i));
-          // System.out.println(inMessages.get(i));
+           System.out.println(inMessages.get(i));
         }
-        
+// Апдейт таблицы - вставка оригинального пути, названия документа, даты вставки и замена статуса на "Готов"
+//       try
+//            {
+//                InMsg = new InMessage();
+//                Class.forName ("com.mysql.jdbc.Driver").newInstance();
+//                conn = DriverManager.getConnection (url, userName, password);
+//                stat = conn.createStatement();
+//                String SQL =(" update documentsinfo "
+//                           + " set TranslatedPath = ' test', "
+//                           + " Document = ' test2', "
+//                           + " Status = 2, "
+//                           + " TranslationDate = NOW()"
+//                           + " where DocumentID =  ");
+//                stat.executeUpdate(SQL);
+//                stat.close();
+//            }catch (Exception e )
+//            {
+//                System.err.println (e.getMessage());
+//            }
+//            finally {
+//                try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+//            }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**

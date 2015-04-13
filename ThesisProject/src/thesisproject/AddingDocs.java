@@ -36,7 +36,7 @@ public class AddingDocs extends javax.swing.JFrame {
     private String url = "jdbc:mysql://localhost:3306/testdb";
 
     private static final String originals = "files/originals";
-    private static final String translated = "files/translated";
+    //private static final String translated = "files/translated";
 
     HashMap<String, Integer> CureID = new HashMap<>();
     File[] files;

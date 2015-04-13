@@ -143,7 +143,7 @@ public class Translators extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -534,7 +534,7 @@ prs.close();
     stat = conn.createStatement();
     res = stat.executeQuery(" Select count(*) from documentsinfo\n" +
                             " Where (TranslatorID="+IDTranslators.getIDTranslators()+" and Status=2)\n" +
-                            " and TranslationDate between '"+jTextField6.getText()+"' and '"+jTextField7.getText()+"' ");
+                            " or TranslationDate between '"+jTextField6.getText()+"' and '"+jTextField7.getText()+"' ");
     res.next();
     jLabel8.setText(res.getString(1));
     stat.close();

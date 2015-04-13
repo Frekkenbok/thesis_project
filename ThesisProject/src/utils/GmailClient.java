@@ -1,6 +1,10 @@
 package utils;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -13,11 +17,16 @@ import javax.mail.Message.RecipientType;
 import javax.mail.internet.*;
 
 /**
- * @author bkv
+ * @author Evgeniya
  */
 
 public class GmailClient {
-
+Connection conn = null;
+ Statement stat = null;
+ ResultSet res = null;
+ String userNameSQL = "root";
+ String passwordSQL = "Password";
+ String url = "jdbc:mysql://localhost:3306/testdb";
     private String userName;
     private String password;
     private String sendingHost;
@@ -29,6 +38,7 @@ public class GmailClient {
     private String receivingHost;
     private String saveDir;
     private String getDir;
+    private static final String translated = "files/translated";
     
     public void setAccountDetails(String userName, String password) {
 
@@ -116,7 +126,7 @@ public class GmailClient {
 
     public void readGmail(InMessage inMessage) {
         
-        String mailFrom = new String("ddmmyy20150112@gmail.com");
+       // String mailFrom = new String("ddmmyy20150112@gmail.com");
         String senderPassword = new String("password20150112");
         String senderUserName = new String("ddmmyy20150112@gmail.com");
         //Gmail client init
@@ -134,30 +144,30 @@ public class GmailClient {
             //folder.open(Folder.READ_WRITE);
 
             Message message[] = folder.getMessages();
-           
+            System.out.println("one");           
             System.out.println(message.length);
             
             for (int i = 0; i < message.length; i++) {
 
                 Pattern p = Pattern.compile(inMessage.getInid());
                 
-                System.out.println(inMessage.getInid());
+System.out.println(inMessage.getInid());
                 
                 Matcher m = p.matcher(message[i].getSubject());
-                
+                System.out.println("two");                
                 if (m.matches()) {
-                    
+                    System.out.println("match");                   
                     System.out.println(message[i].getSubject());
                     String contentType = message[i].getContentType();
-                    String attachFiles = "";
+                    //String attachFiles = "";
 
                     if (contentType.contains("multipart")) {
                         // content may contain attachments
                         Multipart multipart = (Multipart) message[i].getContent();
 
                         System.out.println(multipart.getCount());
-
-                        for (int j = 0; i < multipart.getCount(); j++) {
+System.out.println("attachment");
+                        for (int j = 0; j < multipart.getCount(); j++) {
                             BodyPart bodyPart = multipart.getBodyPart(j);
                             if (!Part.ATTACHMENT.equalsIgnoreCase(bodyPart.getDisposition())) {
                                 continue; // dealing with attachments only
@@ -168,16 +178,21 @@ public class GmailClient {
                             //String filename = bodyPart.getFileName();
                             String filename = MimeUtility.decodeText(bodyPart.getFileName());
    
-                            File f = new File("files" 
+                            File f = new File(translated 
                                     + File.separator 
-                                    + "translated" 
                                     + inMessage.getCureId() 
                                     + File.separator
                                     + new SimpleDateFormat("yyyyMMdd").format(new Date())
                                     + File.separator
                                     + filename);
-                            
-                            inMessage.setInfile(f);                    
+System.out.println("File path is "+ f);                            
+                     // saving       
+                            inMessage.setInfile(f);  
+                            File filePath  = new File(f.getParent());
+                            if(!filePath.exists()){
+                            filePath.mkdirs();
+            }
+
                             System.out.println(f.getName());
                             try {
                                 if (f == null) {
@@ -198,6 +213,30 @@ public class GmailClient {
                                 bos.close();
                                 bis.close();
                                 fos.close();
+// Апдейт таблицы - вставка оригинального пути, названия документа, даты вставки и замена статуса на "Готов"
+                                System.out.println("Updating..");
+           try
+            {
+                Class.forName ("com.mysql.jdbc.Driver").newInstance();
+                conn = DriverManager.getConnection (url, userNameSQL, passwordSQL);
+                stat = conn.createStatement();
+                String SQL =(" update documentsinfo "
+                           + " set TranslatedPath = '"+f+"', "
+                           + " Document = '"+filename+"', "
+                           + " Status = 2, "
+                           + " TranslationDate = NOW()"
+                           + " where DocumentID = substring_index( substring_index('"+inMessage.getInid()+"', '_', -2), '_', 1) ");
+                System.out.println("These raw was updated DocumentID=" + inMessage.getInid()+ ", Path=" +f+ ", FileName=" +filename);
+                stat.executeUpdate(SQL);
+                stat.close();
+                
+            }catch (Exception e )
+            {
+                System.err.println (e.getMessage());
+            }
+            finally {
+                try { if ( conn != null ) { conn.close(); } } catch (Exception ignore) {}
+            }
                             }
                             catch (IOException exp) {
                                 System.out.println("IOException:" + exp);
@@ -218,13 +257,13 @@ public class GmailClient {
         //init variables
       
         OutMessage message = new OutMessage();
-        message.setEmail("eva.minion@yandex.ru");
+        message.setEmail("ddmmyy20150112@gmail.com");
         message.setId("7");
         message.setFile(new File("files\\originals\\19\\20150228\\SQLQuery3.sql"));
         
         InMessage inMessage = new InMessage();
-        inMessage.setCureId("2");
-        inMessage.setInid("36");
+        inMessage.setCureId("5");
+        inMessage.setInid("49");
        
         
         GmailClient gmailClient = new GmailClient();
